@@ -15,3 +15,8 @@ if __name__ == '__main__':
         if card.is_active:
             active_cards = active_cards +1
     print('Активных пропусков ',  active_cards)
+
+    # or
+
+    active_cards = len(Passcard.objects.filter(is_active=True))
+    print('Активных пропусков ', active_cards)
