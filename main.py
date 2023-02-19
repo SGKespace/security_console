@@ -8,6 +8,7 @@ django.setup()
 from datacenter.models import Passcard  # noqa: E402
 from datacenter.models import Visit
 
+
 if __name__ == '__main__':
     # Программируем здесь
     # print('Количество пропусков:', Passcard.objects.count())  # noqa: T001
@@ -22,6 +23,13 @@ if __name__ == '__main__':
     # print(visits)
 
     # visits_not_leaved = Visit.objects.filter(leaved_at )
+    def get_name(visit, cards):
+        for card in cards:
+            if visit.passcard.passcode == card.passcode:
+                return card.owner_name
+
+
+
 
     def get_time_formatting(raw_time):
         time_seconds = raw_time.total_seconds()
@@ -32,7 +40,9 @@ if __name__ == '__main__':
 
     visits_not_leaved = Visit.objects.exclude(leaved_at__isnull=False)
     # print(visits_not_leaved)
+    cards = Passcard.objects.all()
     for visit in visits_not_leaved:
+        print(get_name(visit, cards))
         print("Зашёл в хранилище, время по Москве:")
         # print(visits_not_leaved[0].entered_at)
         print(visit.entered_at)
